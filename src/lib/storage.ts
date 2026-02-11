@@ -1,4 +1,4 @@
-import { type Habit } from "../types/habit";
+import type { Habit } from "../types/habit";
 
 const STORAGE_KEY = "habits";
 
