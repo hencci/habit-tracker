@@ -4,9 +4,11 @@ import type { Habit } from "../../types/habit";
 export function HabitList({
   habits,
   onToggle,
+  onRemove,
 }: {
   habits: Habit[];
   onToggle: (id: string) => void;
+  onRemove: (id: string) => void;
 }) {
   return (
     <div className="space-y-3">
@@ -15,6 +17,7 @@ export function HabitList({
           key={habit.id}
           habit={habit}
           onToggle={() => onToggle(habit.id)}
+          onRemove={() => onRemove(habit.id)}
         />
       ))}
     </div>
