@@ -7,6 +7,8 @@ Track daily habits, maintain streaks, visualize progress, and receive browser re
 
 ## 🚀 Live Demo
 
+https://hencci-habit-tracker.netlify.app
+
 ---
 
 ## ✨ Features
