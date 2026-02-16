@@ -1,21 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Habit } from "../types/habit";
 import { loadHabits, saveHabits } from "../lib/storage";
 import { today } from "../lib/dates";
 
 export function useHabits() {
   const [habits, setHabits] = useState<Habit[]>([]);
+  const isFirstLoad = useRef(true);
 
-  // Load habits on app start
+  /**
+   * Load habits once when component mounts
+   */
   useEffect(() => {
-    setHabits(loadHabits());
+    const stored = loadHabits();
+    setHabits(stored);
   }, []);
 
-  // Persist habits whenever they change
-  useEffect(() => {
+  /**
+   * Save habits whenever they change
+   * BUT skip first render to avoid overwriting storage
+   */ useEffect(() => {
+    if (isFirstLoad.current) {
+      isFirstLoad.current = false;
+      return;
+    }
+
     saveHabits(habits);
   }, [habits]);
-
   function addHabit(name: string) {
     setHabits((prev) => [
       ...prev,
