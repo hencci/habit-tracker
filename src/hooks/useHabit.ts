@@ -49,5 +49,12 @@ export function useHabits() {
     );
   }
 
-  return { habits, addHabit, toggleHabitCompletion };
+  /**
+   * Remove habit entirely
+   */
+  function removeHabit(id: string) {
+    setHabits((prev) => prev.filter((habit) => habit.id !== id));
+  }
+
+  return { habits, addHabit, toggleHabitCompletion, removeHabit };
 }
