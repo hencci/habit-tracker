@@ -17,8 +17,8 @@ export function useHabits() {
   }, [habits]);
 
   function addHabit(name: string) {
-    setHabits([
-      ...habits,
+    setHabits((prev) => [
+      ...prev,
       {
         id: crypto.randomUUID(),
         name,
@@ -28,17 +28,20 @@ export function useHabits() {
     ]);
   }
 
+  /**
+   * Toggle completion for TODAY only
+   */
   function toggleHabitCompletion(id: string) {
-    setHabits(
-      habits.map((habit) => {
+    setHabits((prev) =>
+      prev.map((habit) => {
         if (habit.id !== id) return habit;
 
         const date = today();
-        const completed = habit.completedDates.includes(date);
+        const alreadyCompleted = habit.completedDates.includes(date);
 
         return {
           ...habit,
-          completedDates: completed
+          completedDates: alreadyCompleted
             ? habit.completedDates.filter((d) => d !== date)
             : [...habit.completedDates, date],
         };
